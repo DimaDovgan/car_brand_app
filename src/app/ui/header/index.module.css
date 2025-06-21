@@ -1,0 +1,49 @@
+@charset "UTF-8";
+.header {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  /* вирівнювання по горизонталі */
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /* вирівнювання по вертикалі */
+  width: 100%;
+  /* на всю ширину */
+  max-width: 1200px;
+  /* максимальна ширина */
+  margin: 0 auto;
+  /* центрування */
+  padding: 10px;
+  /* внутрішні відступи */
+  background-color: #f0f0f0;
+  /* фон */
+  height: 250px;
+  margin-bottom: 100px;
+  position: relative;
+}
+
+.header__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.header__logo_text {
+  color: #0057B8;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.header__logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=index.module.css.map */

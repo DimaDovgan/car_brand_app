@@ -1,103 +1,113 @@
+"use client";
+import { useBrands } from "./customHooks/useBrands";
+import { IcarBrand } from "./lib/types";
+import styles from "./page.module.scss";
+import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState ,useMemo} from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import CarModelSkeleton from "@/app/ui/Skeleton";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { data, isLoading, isError } = useBrands();
+  const [letters, setLetters] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>(""); // Локальний state
+  const queryClient = useQueryClient();
+  
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const query = queryClient.getQueryData<string>(["searchQuery"]) || "";
+    setSearchQuery(query);
+  }, []); 
+  
+  useEffect(() => {
+    if (typeof window === "undefined") return; 
+    const unsubscribe = queryClient.getQueryCache().subscribe(() => {
+      const query = queryClient.getQueryData<string>(["searchQuery"]) || "";
+      setSearchQuery(query);
+    });
+
+    return () => unsubscribe();
+  }, [queryClient]);
+
+  const handleScroll = (letter: string) => {
+    const element = document.getElementById(`letter-${letter}`);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+  // Використовуємо useMemo для фільтрації
+  const filteredBrands = useMemo(() => {
+    if (typeof window === "undefined") return;
+    return data?.filter((brand: IcarBrand) =>
+      brand.name.toLowerCase().includes(searchQuery.toLowerCase())
+    ) || [];
+  }, [data, searchQuery]);
+
+  // Оновлюємо унікальні літери при зміні `filteredBrands`
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    else if (filteredBrands?.length) {
+      const uniqueLetters = Array.from(new Set(filteredBrands.map((brand) => brand.name[0].toUpperCase())));
+      setLetters(uniqueLetters);
+    }
+  }, [filteredBrands]);
+
+  // if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading brands</div>;
+
+  return (
+    <div className={styles.brands}>
+      <h2 className={styles.brands__title}>Brands</h2>
+      {isLoading  ? (
+        <CarModelSkeleton count={30} />
+      ) : (<>
+      <div className={styles.lettersNavWrapper}>
+        <div className={styles.lettersNav}>
+          {letters.map((letter) => (
+            <button key={letter} onClick={() => handleScroll(letter)} className={styles.letterButton}>
+              {letter}
+            </button>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+      {filteredBrands?.length ? (
+        <div className={styles.brands__grid}>
+          {filteredBrands.map((brand, index) => {
+            const firstLetter = brand.name[0].toUpperCase();
+            const showLetter = index === 0 || firstLetter !== filteredBrands[index - 1].name[0].toUpperCase();
+
+            return (
+              <div key={brand.name} className={`${styles.brands__div} ${showLetter ? styles.newRow : ''}`}>
+                {showLetter && (
+                  <div id={`letter-${firstLetter}`} className={styles.brands__letter}>
+                    {firstLetter}
+                    <div className={styles.fullWidthElement}></div>
+                  </div>
+                )}
+                <div className={styles.brands__item}>
+                  <Link href={`/models/${brand.id}/${brand.name}`} className={styles.brands__link} data-testid={`brand-${brand.name}`}>
+                    <div className={styles.brands__content}>
+                      <Image
+                        src={brand.image}
+                        alt={brand.name}
+                        width={50}
+                        height={50}
+                        className={styles.brands__image}
+                      />
+                      <p className={styles.brands__name}>{brand.name}</p>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <p>No brands found</p>
+      )}
+      </>)}
     </div>
   );
 }

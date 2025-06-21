@@ -1,0 +1,62 @@
+.skeletonGrid {
+  /* Відповідає .models__list */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px; /* Ваша gap з .models__list */
+  align-items: start;
+  /* Можете додати padding, якщо .models__list має зовнішні відступи */
+  /* padding: 10px; */
+}
+
+.skeletonItem {
+  /* Відповідає .models__item */
+  background: #fff; /* Білий фон, як у ваших елементів */
+  padding: 10px; /* Ваш padding з .models__item */
+  border-radius: 8px; /* Ваш border-radius з .models__item */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ваша тінь з .models__item */
+  
+  /* Додаємо стилі для скелетону */
+  height: 180px; /* Приблизна висота вашого .models__item з зображенням і текстом */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Центруємо вміст скелетону */
+  gap: 10px; /* Розрив між елементами всередині скелетону */
+
+  /* Анімація пульсації */
+  background-color: #f0f0f0; /* Базовий колір скелетону */
+  animation: loading-pulse 1.5s infinite ease-in-out;
+}
+
+.skeletonImage {
+  /* Імітує .models__image */
+  width: 130px; /* Ваша width з Image */
+  height: 100px; /* Ваша height з Image */
+  background-color: #e0e0e0; /* Сірий для заглушки */
+  border-radius: 4px; /* Якщо зображення має заокруглення */
+  object-fit: contain; /* Відповідає вашому object-fit */
+}
+
+.skeletonText {
+  /* Імітує .models__name */
+  width: 80%; /* Приблизна ширина для тексту */
+  height: 16px; /* Приблизна висота рядка тексту */
+  background-color: #e0e0e0; /* Сірий для заглушки */
+  border-radius: 4px;
+  margin-top: 5px; /* Ваш margin-top з models__name */
+  /* Ваша height з models__name, якщо текст займає кілька рядків */
+  /* height: 40px; */
+}
+
+/* Анімація для ефекту пульсації */
+@keyframes loading-pulse {
+  0% {
+    background-color: #f0f0f0;
+  }
+  50% {
+    background-color: #e6e6e6; /* Світліший відтінок для пульсації */
+  }
+  100% {
+    background-color: #f0f0f0;
+  }
+}

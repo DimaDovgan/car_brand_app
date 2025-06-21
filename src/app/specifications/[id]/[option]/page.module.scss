@@ -1,0 +1,167 @@
+.specification {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 50px;
+  }
+  
+  .specification__title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0057b8;
+    display: block; 
+    margin: 0 auto; 
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .specification__list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .specification__item {
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
+  }
+  
+  .green_sty {
+    border-left: 5px solid green;
+    padding-left: 10px;
+  }
+  
+  .red_sty {
+    border-left: 5px solid red;
+    padding-left: 10px;
+  }
+  
+  .specification__link {
+    text-decoration: none;
+  }
+  
+  .specification__content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .specification__item_inf_comp {
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
+  }
+  
+  .models__image {
+    object-fit: contain;
+    margin: 0 auto;
+  }
+  
+  .specification__name {
+    margin-top: 5px;
+    font-weight: 700;
+    color: #222;
+    font-size: 20px;
+  }
+  
+  .specification__bodytype {
+    margin-top: 5px;
+    font-weight: 500;
+    color: #222;
+    font-size: 20px;
+    padding-right: 10px;
+  }
+  
+  .specification__power {
+    margin-top: 5px;
+    font-weight: 500;
+    color: #595959;
+    font-size: 20px;
+  }
+  
+  .red_col {
+    color: red;
+  }
+  
+  .green_col {
+    color: green;
+  }
+  
+  .specification__item_inf {
+    width: 330px;
+  }
+  
+  @media (min-width: 768px) {
+    .specification__content {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .specification__item_inf {
+      margin-left: 20px;
+    }
+    .specification__bodytype {
+        text-align: right;
+      }
+      
+  }
+  
+  @media (min-width: 1100px) {
+    .specification {
+      margin-top: 130px;
+    }
+  }
+  
+  /* Додаткові стилі залишаються без змін */
+  
+  .lettersNav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .letterButton {
+    padding: 5px 10px;
+    border: none;
+    background-color: lightgray;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+  
+  .letterButton:hover {
+    background-color: gray;
+    color: white;
+  }
+  
+  .lettersNavWrapper {
+    width: 100%;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .fullWidthElement {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 95vw;
+    height: 2px;
+    background-color: gray;
+    z-index: -1;
+    max-width: 1180px;
+  }
+  
+  @media (min-width: 768px) {
+    .fullWidthElement {
+      width: 98vw;
+    }
+  }
+  
