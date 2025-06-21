@@ -33,7 +33,7 @@ const CharacteristicsPage = () => {
     if (params?.id && params?.option) {
       setId(params.id);
       setOption(params.option);
-      console.log(params,"params");
+      console.log(params,"params",option,"option");
       queryClient.setQueryData(["navCharacteristicsPage"], `/characteristics/${params.id}/${params.option}`);
     }
   }, [params]);

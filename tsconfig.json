@@ -44,6 +44,12 @@
     "cypress/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
-  ]
+    "node_modules",
+    "cypress",
+    "src/tests",
+    "__mocks__",
+    "**/*.test.*",
+    "**/*.spec.*"
+  ],
+  
 }

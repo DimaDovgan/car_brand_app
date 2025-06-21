@@ -1,7 +1,5 @@
 cypress/
 src/tests/
 __mocks__/
-jest.*
-jest.config.*
 *.test.*
 *.spec.*
