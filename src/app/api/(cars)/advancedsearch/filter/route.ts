@@ -285,7 +285,12 @@ if (matchingIds === null) {
   total = count;
 } else if (matchingIds.length === 0) {
   // 👉 Фільтри застосовані, але нічого не знайдено
-  return NextResponse.json({ page, pageSize, total: 0, data: [] });
+  // return NextResponse.json({ page, pageSize, total: 0, data: [] });
+  const emptyResponse = NextResponse.json({ page, pageSize, total: 0, data: [] });
+      emptyResponse.headers.set('Access-Control-Allow-Origin', 'https://car-brand-app-git-main-dmitrys-projects-95a88bf3.vercel.app');
+      emptyResponse.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+      emptyResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+      return emptyResponse;
 } else {
   // 👉 Є знайдені ID, фільтри застосовано
   total = matchingIds.length;
@@ -299,22 +304,43 @@ if (matchingIds === null) {
   cars = filteredCars;
 }
 
-
-
-    return NextResponse.json({
+const successResponse = NextResponse.json({
       page,
       pageSize,
       total,
       data: cars,
     });
 
+    successResponse.headers.set('Access-Control-Allow-Origin', 'https://car-brand-app-git-main-dmitrys-projects-95a88bf3.vercel.app');
+    successResponse.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    successResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+
+    return successResponse;
+
+    // return NextResponse.json({
+    //   page,
+    //   pageSize,
+    //   total,
+    //   data: cars,
+    // });
+
   } catch (error: unknown) {
     const err = error as Error;
   console.error('Filter error:', err)
-    return NextResponse.json(
+  const errorResponse = NextResponse.json(
       { error: 'Internal server error', details: err.message },
       { status: 500 }
     );
+    
+    errorResponse.headers.set('Access-Control-Allow-Origin', 'https://car-brand-app-git-main-dmitrys-projects-95a88bf3.vercel.app');
+    errorResponse.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    errorResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    
+    return errorResponse;
+    // return NextResponse.json(
+    //   { error: 'Internal server error', details: err.message },
+    //   { status: 500 }
+    // );
   }
 }
 

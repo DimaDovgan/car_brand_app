@@ -1,6 +1,5 @@
 "use client";
 import { useBrands } from "./customHooks/useBrands";
-import { useTest } from "./customHooks/useTest";
 import { IcarBrand } from "./lib/types";
 import styles from "./page.module.scss";
 import Link from "next/link";
@@ -11,11 +10,9 @@ import CarModelSkeleton from "@/app/ui/Skeleton";
 
 export default function Home() {
   const { data, isLoading, isError } = useBrands();
-  const { dataTest, isLoadingTest, isErrorTest } = useTest();
   const [letters, setLetters] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>(""); // Локальний state
   const queryClient = useQueryClient();
-  console.log("Data from useTest:", dataTest,isLoadingTest,isErrorTest);
   
 
   useEffect(() => {
