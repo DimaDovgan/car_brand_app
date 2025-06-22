@@ -6,7 +6,10 @@ import axios from "axios";
 import { CarModelsResponse} from "../lib/types";
 
 const getData=async (filter:string)=>{
-    return axios.get<CarModelsResponse>(`http://localhost:3000/api/advancedsearch/filter?${filter}`)
+    const baseUrl = process.env.NODE_ENV === 'production' 
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
+    : 'http://localhost:3000';
+    return axios.get<CarModelsResponse>(`${baseUrl}/api/advancedsearch/filter?${filter}`)
 }
 
 export function useFilter(filter:string){

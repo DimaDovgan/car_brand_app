@@ -7,7 +7,10 @@ import { Icarcharacteristics} from "../lib/types";
 
 
 const getData=async (id:string)=>{
-    return axios.get<Icarcharacteristics[]>(`http://localhost:3000/api/characteristics/${id}`)
+    const baseUrl = process.env.NODE_ENV === 'production' 
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
+    : 'http://localhost:3000';
+    return axios.get<Icarcharacteristics[]>(`${baseUrl}/api/characteristics/${id}`)
 }
 
 export function useCharacteristics(id:string){

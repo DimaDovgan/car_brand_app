@@ -7,7 +7,10 @@ import axios from "axios";
 
 
 const getData=async ()=>{
-    return axios.get('http://localhost:3000/api/test')
+    const baseUrl = process.env.NODE_ENV === 'production' 
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
+    : 'http://localhost:3000';
+    return axios.get(`${baseUrl}/api/test`)
 }
 
 export function useTest(){

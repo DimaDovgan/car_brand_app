@@ -7,7 +7,10 @@ import { IcarModel } from "../lib/types";
 
 
 const getData=async (id:string)=>{
-    return axios.get<IcarModel[]>(`http://localhost:3000/api/models/${id}`)
+    const baseUrl = process.env.NODE_ENV === 'production' 
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
+    : 'http://localhost:3000';
+    return axios.get<IcarModel[]>(`${baseUrl}/api/models/${id}`)
 }
 
 export function useModels(id:string){

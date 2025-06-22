@@ -7,7 +7,10 @@ import { IcarBrand } from "../lib/types";
 
 
 const getData=async ()=>{
-    return axios.get<IcarBrand[]>('http://localhost:3000/api/allbrand')
+    const baseUrl = process.env.NODE_ENV === 'production' 
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
+    : 'http://localhost:3000';
+    return axios.get<IcarBrand[]>(`${baseUrl}/api/allbrand`)
 }
 
 export function useBrands(){

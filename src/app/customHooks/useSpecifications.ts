@@ -7,7 +7,10 @@ import { IcarSpecifications} from "../lib/types";
 
 
 const getData=async (id:string)=>{
-    return axios.get<IcarSpecifications[]>(`http://localhost:3000/api/specifications/${id}`)
+    const baseUrl = process.env.NODE_ENV === 'production' 
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
+    : 'http://localhost:3000';
+    return axios.get<IcarSpecifications[]>(`${baseUrl}/api/specifications/${id}`)
 }
 
 export function useSpecifications(id:string){

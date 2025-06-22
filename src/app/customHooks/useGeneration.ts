@@ -7,7 +7,10 @@ import { IcarGeneration } from "../lib/types";
 
 
 const getData=async (id:string)=>{
-    return axios.get<IcarGeneration[]>(`http://localhost:3000/api/generation/${id}`)
+    const baseUrl = process.env.NODE_ENV === 'production' 
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
+    : 'http://localhost:3000';
+    return axios.get<IcarGeneration[]>(`${baseUrl}/api/generation/${id}`)
 }
 
 export function useGeneration(id:string){
