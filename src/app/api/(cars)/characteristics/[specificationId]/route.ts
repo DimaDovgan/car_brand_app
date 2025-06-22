@@ -1,8 +1,6 @@
 import {NextRequest,NextResponse } from 'next/server';
 import pool from '@/app/lib/db';
 export async function GET(request:NextRequest) {
-    
-  
     try {
        const url = new URL(request.url);
   const pathSegments = url.pathname.split('/');
