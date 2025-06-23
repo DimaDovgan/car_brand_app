@@ -287,7 +287,7 @@ if (matchingIds === null) {
   // 👉 Фільтри застосовані, але нічого не знайдено
   // return NextResponse.json({ page, pageSize, total: 0, data: [] });
   const emptyResponse = NextResponse.json({ page, pageSize, total: 0, data: [] });
-      emptyResponse.headers.set('Access-Control-Allow-Origin', 'https://car-brand-app-git-main-dmitrys-projects-95a88bf3.vercel.app');
+      emptyResponse.headers.set('Access-Control-Allow-Origin', '*');
       emptyResponse.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
       emptyResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
       return emptyResponse;
@@ -311,7 +311,7 @@ const successResponse = NextResponse.json({
       data: cars,
     });
 
-    successResponse.headers.set('Access-Control-Allow-Origin', 'https://car-brand-app-git-main-dmitrys-projects-95a88bf3.vercel.app');
+    successResponse.headers.set('Access-Control-Allow-Origin', '*');
     successResponse.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
     successResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -332,7 +332,7 @@ const successResponse = NextResponse.json({
       { status: 500 }
     );
     
-    errorResponse.headers.set('Access-Control-Allow-Origin', 'https://car-brand-app-git-main-dmitrys-projects-95a88bf3.vercel.app');
+    errorResponse.headers.set('Access-Control-Allow-Origin', '*');
     errorResponse.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
     errorResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
     

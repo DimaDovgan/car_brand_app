@@ -14,7 +14,7 @@ export async function GET(request:NextRequest) {
       const response = NextResponse.json(characteristics, {status: 200});
     
     // Додаємо необхідні CORS-заголовки
-    response.headers.set('Access-Control-Allow-Origin', 'https://car-brand-app-git-main-dmitrys-projects-95a88bf3.vercel.app');
+    response.headers.set('Access-Control-Allow-Origin', '*');
     response.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
     
